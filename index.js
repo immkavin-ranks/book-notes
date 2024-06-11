@@ -1,7 +1,10 @@
 import express from "express";
+import axios from "axios";
 
 const app = express();
 const port = 3000;
+
+app.use(express.static("public"));
 
 const books = [
   {
@@ -60,13 +63,16 @@ app.get("/", (req, res) => {
   res.render("index.ejs", { books: books });
 });
 
-app.get("/book/:notes_link", (req, res) => {
+app.get("/:notes_link", async (req, res) => {
   const notes_link = req.params.notes_link;
   const book = books.find(
     (book) => book.title.replace(/[^a-zA-Z0-9]+/g, "") === notes_link
   );
   const book_notes = notes.filter((note) => note.book_id === book.id);
-  res.render("book.ejs", { book: book, notes: book_notes });
+  res.render("book.ejs", {
+    book: book,
+    notes: book_notes,
+  });
 });
 
 app.listen(port, () => {
