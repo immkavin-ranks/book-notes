@@ -6,22 +6,39 @@
     <title>Book Notes</title>
     <link rel="stylesheet" href="stylesheets/main.css" />
   </head>
-  <body>
-    <h1>Book Notes</h1>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
-    <% for (var i = 0; i < books.length; i++) { %>
-    <h2>
-      <a href="/<%= books[i].title.replace(/[^a-zA-Z0-9]+/g, '') %>">
-        <%= books[i].title %>
-      </a>
-    </h2>
-    <img
-      src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-M.jpg"
-    />
-    <p><%= books[i].author %></p>
-    <p><%= books[i].isbn %></p>
-    <p><%= books[i].rating %></p>
-    <p><%= books[i].review %></p>
-    <% } %>
+  <body class="bg-blue-200 mx-auto max-w-3xl py-4 px-4">
+    <!-- <div class=""> -->
+      <h1 class="text-3xl tracking-wide font-bold inline-block  mb-4">
+        Book Notes
+      </h1>
+      <button
+        type="button"
+        class="py-3 px-4 tracking-widest float-right inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        Add Book
+      </button>
+      <% for (var i = 0; i < books.length; i++) { %>
+      <div class="flex items-start mb-4">
+        <img
+          src="https://covers.openlibrary.org/b/isbn/<%= books[i].isbn %>-M.jpg"
+          class="float-left mr-4"
+        />
+        <div>
+          <h2 class="font-bold text-2xl underline mb-1">
+            <a href="/<%= books[i].title.replace(/[^a-zA-Z0-9]+/g, '') %>">
+              <%= books[i].title %> by <%= books[i].author %>
+            </a>
+          </h2>
+          <p class="flex items-center mb-4">
+            <span class="text-gray-500 mr-2">ISBN: <%= books[i].isbn %> </span>
+            <span class="text-gray-500">Rating: <%= books[i].rating %>/10</span>
+          </p>
+          <p class="text-gray-500 text-lg"><%= books[i].review %></p>
+        </div>
+      </div>
+      <hr class="my-4 border-t-2 border-gray-300" />
+
+      <% } %>
+    <!-- </div> -->
   </body>
 </html>
