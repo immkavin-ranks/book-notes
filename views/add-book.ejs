@@ -7,20 +7,70 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body class="bg-blue-200 max-w-3xl mx-auto py-8 px-4">
-    <h1>Add Book</h1>
-    <form action="/book" method="post">
-      <label for="title">Title</label>
-      <input type="text" name="title" id="title" required />
-      <label for="author">Author</label>
-      <input type="text" name="author" id="author" required />
-      <label for="isbn">ISBN</label>
-      <input type="text" name="isbn" id="isbn" required />
-      <label for="rating">Rating</label>
-      <input type="number" name="rating" id="rating" required />
-      <label for="review">Review</label>
-      <textarea name="review" id="review" required></textarea>
-      <button type="submit">Add Book</button>
+    <h1 class="text-3xl tracking-wide font-bold inline-block mb-4">Add Book</h1>
+    <form action="/book" method="post" class="mt-8 grid grid-cols-6 gap-6">
+      <div class="col-span-6 sm:col-span-3">
+        <label for="title" class="block text-sm font-medium text-gray-700"
+          >Title</label
+        >
+        <input
+          type="text"
+          name="title"
+          id="title"
+          class="mt-1 w-full p-1.5 text-lg rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
+          required
+        />
+      </div>
+      <div class="col-span-6 sm:col-span-3">
+        <label for="author" class="block text-sm font-medium text-gray-700"
+          >Author</label
+        >
+        <input
+          type="text"
+          name="author"
+          id="author"
+          class="mt-1 w-full p-1.5 text-lg rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
+          required
+        />
+      </div>
+      <div class="col-span-6 sm:col-span-3">
+        <label for="isbn" class="block text-sm font-medium text-gray-700"
+          >ISBN</label
+        >
+        <input
+          type="text"
+          name="isbn"
+          id="isbn"
+          class="mt-1 w-full p-1.5 text-lg rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
+          required
+        />
+      </div>
+      <div class="col-span-6 sm:col-span-3">
+        <label for="rating" class="block text-sm font-medium text-gray-700"
+          >Rating (on a scale of 1-10)</label
+        >
+        <input
+          type="number"
+          name="rating"
+          id="rating"
+          class="mt-1 w-full p-1.5 text-lg rounded-md border-gray-200 bg-white text-gray-700 shadow-sm"
+          required
+        />
+      </div>
+      <div class="col-span-6">
+        <label for="review" class="block text-sm font-medium text-gray-700"
+          >Review</label
+        >
+        <textarea
+          name="review"
+          id="review"
+          rows="5"
+          class="mt-1 w-full p-1.5 rounded-md border border-sky-700 bg-white text-lg text-gray-700 shadow-sm"
+          required
+        ></textarea>
+      </div>
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded col-span-5">Add Book</button>
+      <button onclick="history.back()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded col-span-1">Back</button>
     </form>
-    <a href="/">Back</a>
   </body>
 </html>
