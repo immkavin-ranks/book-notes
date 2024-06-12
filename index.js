@@ -19,7 +19,7 @@ app.use(express.static("public"));
 let books = [];
 
 app.get("/", async (req, res) => {
-  const sort = req.query.sort || "default";
+  const sort = req.query.sort;
 
   let orderByClause;
   switch (sort) {
@@ -40,8 +40,8 @@ app.get("/", async (req, res) => {
     );
     books = response.rows;
     res.render("index.ejs", { books: books });
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error.message);
     res.status(500).send("Server Error");
   }
 });
@@ -59,6 +59,10 @@ app.get("/book/:notes_link", async (req, res) => {
     book: book,
     notes: notes,
   });
+});
+
+app.get("/book", (req, res) => {
+  res.render("add-book.ejs");
 });
 
 app.post("/book", async (req, res) => {});
