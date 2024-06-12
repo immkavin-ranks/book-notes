@@ -5,7 +5,7 @@ CREATE TABLE books (
     isbn TEXT NOT NULL,
     rating INTEGER NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    review TEXT
+    review TEXT NOT NULL
 );
 
 CREATE TABLE notes (

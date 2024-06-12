@@ -14,6 +14,7 @@ const db = new pg.Client({
 
 db.connect();
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 let books = [];
@@ -65,7 +66,32 @@ app.get("/book", (req, res) => {
   res.render("add-book.ejs");
 });
 
-app.post("/book", async (req, res) => {});
+app.post("/book", async (req, res) => {
+  const { title, author, isbn, rating, review } = req.body;
+
+  if (
+    !title.trim() ||
+    !author.trim() ||
+    !isbn.trim() ||
+    !rating ||
+    !review.trim()
+  ) {
+    res.render("add-book.ejs", {
+      error: "Please fill in all fields",})
+    return
+  }
+
+  try {
+    const response = await db.query(
+      "INSERT INTO books (title, author, isbn, rating, review) VALUES ($1, $2, $3, $4, $5)",
+      [title, author, isbn, rating, review]
+    );
+    res.redirect("/");
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
 app.put("/book", async (req, res) => {});
 app.delete("/book", async (req, res) => {});
 
