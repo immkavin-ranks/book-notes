@@ -24,7 +24,7 @@ app.get("/", async (req, res) => {
   res.render("index.ejs", { books: books });
 });
 
-app.get("/:notes_link", async (req, res) => {
+app.get("/book/:notes_link", async (req, res) => {
   const notes_link = req.params.notes_link;
   const book = books.find(
     (book) => book.title.replace(/[^a-zA-Z0-9]+/g, "") === notes_link
