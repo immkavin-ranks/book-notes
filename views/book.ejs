@@ -16,6 +16,7 @@
       <button
         class="inline-block border-e p-3 text-white hover:bg-blue-700 focus:relative"
         title="Edit Book"
+        onclick="location.href = '/book/edit/<%= book.title.replace(/[^a-zA-Z0-9]+/g, ``) %>'"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

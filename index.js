@@ -63,7 +63,7 @@ app.get("/book/:notes_link", async (req, res) => {
 });
 
 app.get("/book", (req, res) => {
-  res.render("add-book.ejs");
+  res.render("book-description.ejs");
 });
 
 app.post("/book", async (req, res) => {
@@ -76,7 +76,7 @@ app.post("/book", async (req, res) => {
     !rating ||
     !review.trim()
   ) {
-    res.render("add-book.ejs", {
+    res.render("book-description.ejs", {
       error: "Please fill in all fields",})
     return
   }
@@ -92,7 +92,13 @@ app.post("/book", async (req, res) => {
   }
 });
 
-app.put("/book", async (req, res) => {});
+app.get("/book/edit/:notes_link", async (req, res) => {
+  const notes_link = req.params.notes_link;
+  const book = books.find(
+    (book) => book.title.replace(/[^a-zA-Z0-9]+/g, "") === notes_link
+  );
+  res.render("book-description.ejs");
+});
 app.delete("/book", async (req, res) => {});
 
 app.post("/note", async (req, res) => {});
