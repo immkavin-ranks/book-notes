@@ -17,6 +17,9 @@ db.connect();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// Routes
+
+// Home
 app.get("/", async (req, res) => {
   const sort = req.query.sort;
 
@@ -48,6 +51,7 @@ app.get("/", async (req, res) => {
   }
 });
 
+// Book
 app.get("/book/:title", async (req, res) => {
   const title = req.params.title;
 
@@ -72,6 +76,7 @@ app.get("/book/:title", async (req, res) => {
   }
 });
 
+// Add Book
 app.get("/addbook", (req, res) => {
   res.render("book-description.ejs");
 });
@@ -104,6 +109,7 @@ app.post("/addbook", async (req, res) => {
   }
 });
 
+// Edit Book
 app.get("/editbook/:title", async (req, res) => {
   const title = req.params.title;
 
@@ -148,6 +154,7 @@ app.post("/editbook", async (req, res) => {
   }
 });
 
+// Delete Book
 app.post("/deletebook", async (req, res) => {
   const title = req.body.title;
 
@@ -160,10 +167,13 @@ app.post("/deletebook", async (req, res) => {
   }
 });
 
+// Add Note
 app.post("/addnote", async (req, res) => {});
 
+// Edit Note
 app.post("/editnote", async (req, res) => {});
 
+// Delete Note
 app.post("/deletenote", async (req, res) => {});
 
 app.listen(port, () => {
