@@ -148,7 +148,17 @@ app.post("/editbook", async (req, res) => {
   }
 });
 
-app.delete("/book", async (req, res) => {});
+app.post("/deletebook", async (req, res) => {
+  const title = req.body.title;
+
+  try {
+    await db.query("DELETE FROM books WHERE title = $1", [title]);
+    res.redirect("/");
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 app.post("/note", async (req, res) => {});
 
