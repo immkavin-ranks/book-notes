@@ -15,7 +15,7 @@
       </h1>
     </header>
     <div
-      class="fixed inset-0 flex items-center justify-center hidden"
+      class="fixed inset-0 flex items-center justify-center"
       style="z-index: 100"
       id="delete-modal"
     >
@@ -169,6 +169,8 @@
 
     <% } %>
     <script>
+      document.getElementById("delete-modal").classList.add("hidden");
+
       document
         .querySelector("#open-delete-modal")
         .addEventListener("click", () => {
