@@ -6,14 +6,16 @@
     <title>Book Notes</title>
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
-  <body class="bg-blue-200 mx-auto max-w-3xl py-4 px-4">
-    <h1 class="text-3xl tracking-wide font-bold inline-block mb-4">
-      Book Notes
+  <body class="bg-blue-200 mx-auto max-w-3xl py-8 px-4">
+    <header>
+      <h1 class="text-4xl tracking-wide font-bold mb-4 hover:underline text-center underline-offset-8">
+      <a href="/">Book Notes</a>
     </h1>
+    
     <form
       action="/"
       method="get"
-      class="inline-block mx-auto p-6 rounded-lg relative"
+      class="inline-block mx-auto mb-8 mt-6 rounded-lg relative"
     >
       <select
         id="sort"
@@ -44,7 +46,7 @@
       type="button"
       class="py-3 px-4 mt-4 tracking-widest float-right inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
       title="Add Book"
-      onclick="location.href = '/book'"
+      onclick="location.href = '/addbook'"
     >
       Add Book
     </button>
@@ -55,8 +57,8 @@
         class="float-left mr-4"
       />
       <div>
-        <h2 class="font-bold text-2xl underline mb-1">
-          <a href="/book/<%= books[i].title.replace(/[^a-zA-Z0-9]+/g, '') %>">
+        <h2 class="font-bold text-2xl hover:underline mb-1 text-blue-600 hover:text-blue-700">
+          <a href="/book/<%= encodeURIComponent(books[i].title) %>">
             <%= books[i].title %> by <%= books[i].author %>
           </a>
         </h2>

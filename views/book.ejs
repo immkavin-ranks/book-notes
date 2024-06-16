@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body class="bg-blue-200 max-w-3xl mx-auto py-8 px-4">
-    <h1 class="text-3xl tracking-wide inline-block font-bold">
-      <%= book.title %>
+    <header>
+      <h1 class="text-4xl tracking-wide font-bold mb-4 underline text-center underline-offset-8">
+      <a href="/">Book Notes</a>
     </h1>
+    </header>
+    <h2 class="text-3xl tracking-wide inline-block font-bold mt-4">
+      <%= book.title %>
+    </h2>
     <span
       class="inline-flex float-right overflow-hidden rounded-md bg-blue-600 shadow-sm"
     >
       <button
         class="inline-block border-e p-3 text-white hover:bg-blue-700 focus:relative"
         title="Edit Book"
-        onclick="location.href = '/book/edit/<%= book.title.replace(/[^a-zA-Z0-9]+/g, ``) %>'"
+        onclick="location.href = '/editbook/<%= book.title %>'"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +61,7 @@
     </span>
     <img
       src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg"
-      class="float-left mr-4"
+      class="float-left mr-4 mt-4"
     />
     <p class="font-bold mb-4">By <%= book.author %></p>
     <p class="text-gray-500 mr-2">ISBN: <%= book.isbn %></p>
