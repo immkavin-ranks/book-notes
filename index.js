@@ -160,11 +160,11 @@ app.post("/deletebook", async (req, res) => {
   }
 });
 
-app.post("/note", async (req, res) => {});
+app.post("/addnote", async (req, res) => {});
 
-app.put("/note", async (req, res) => {});
+app.post("/editnote", async (req, res) => {});
 
-app.delete("/note", async (req, res) => {});
+app.post("/deletenote", async (req, res) => {});
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
