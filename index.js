@@ -141,7 +141,7 @@ app.post("/editbook", async (req, res) => {
       "UPDATE books SET title = $1, author = $2, isbn = $3, rating = $4, review = $5, updated_at = NOW() WHERE id = $6",
       [title, author, isbn, rating, review, id]
     );
-    res.redirect("/");
+    res.redirect(`/book/${title}`);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error");
