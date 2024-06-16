@@ -130,12 +130,12 @@
       >
         Edit Book
       </button>
-      <button
-        onclick="location.href = '/book/<%= book.title %>'"
-        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded col-span-1"
+      <a
+        href="/book/<%= book.title %>"
+        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded col-span-1 text-center"
       >
         Back
-      </button>
+    </a>
     </form>
     <script>
       document
