@@ -168,7 +168,30 @@ app.post("/deletebook", async (req, res) => {
 });
 
 // Add Note
-app.post("/addnote", async (req, res) => {});
+app.post("/addnote/:title", async (req, res) => {
+  const { note } = req.body;
+  const title = req.params.title;
+
+  if (!note.trim()) {
+    res.redirect(`/book/${title}`);
+    return;
+  }
+
+  try {
+    const response = await db.query("SELECT id FROM books WHERE title = $1", [
+      title,
+    ]);
+    const bookId = response.rows[0].id;
+    await db.query("INSERT INTO notes (book_id, note) VALUES ($1, $2)", [
+      bookId,
+      note,
+    ]);
+    res.redirect(`/book/${title}`);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 // Edit Note
 app.post("/editnote", async (req, res) => {});

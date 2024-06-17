@@ -109,22 +109,34 @@
     </p>
     <p class="text-gray-700 text-lg pt-4"><%= book.review %></p>
     <hr class="my-4 border-t-2 border-gray-300" />
-    <div class="mb-4">
-      <h2 class="font-bold text-2xl mb-4 inline-block tracking-wide">
-        My Notes
-      </h2>
-      <button
-        type="button"
-        class="py-3 px-4 tracking-widest float-right inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-        title="Add Note"
-      >
-        Add Note
-      </button>
-    </div>
+    <form action="/addnote/<%= book.title %>" method="post">
+      <div class="mb-4">
+        <h2 class="font-bold text-2xl mb-4 inline-block tracking-wide">
+          My Notes
+        </h2>
+        <button
+          type="submit"
+          class="py-3 px-4 tracking-widest float-right inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+          title="Add Note"
+        >
+          Add Note
+        </button>
+        <div
+          class="mt-2 overflow-hidden rounded-lg border border-gray-600 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+        >
+          <textarea
+            name="note"
+            class="w-full resize-none border-none align-top focus:ring-0 p-2 bg-blue-200"
+            rows="4"
+            placeholder="Enter your notes..."
+          ></textarea>
+        </div>
+      </div>
+    </form>
     <% for (var i = 0; i < notes.length; i++) { %>
     <div class="group flex items-center pb-4">
       <p class="inline-block text-gray-800 text-lg mr-4">
-        <%= notes[i].note %>
+        <%- notes[i].note.replace(/\n/g, "<br>") %></p>
       </p>
       <button
         class="mr-2 text-gray-600 hover:text-yellow-700 hidden group-hover:inline-block"
@@ -166,6 +178,7 @@
         </svg>
       </button>
     </div>
+    <hr class="border border-gray-400">
 
     <% } %>
     <script>
