@@ -177,17 +177,14 @@
           id="cancel<%= notes[i].id %>"
           type="button"
           class="bg-gray-500 hover:bg-gray-700 text-white py-1 px-4 rounded"
+          onclick="cancelHandler('<%= notes[i].id %>')"
           hidden
         >
           Cancel
         </button>
       </form>
       <form action="/deletenote/<%= book.title %>" method="post">
-        <input
-          name="noteId"
-          value="<%= notes[i].id %>"
-          type="hidden"
-        />
+        <input name="noteId" value="<%= notes[i].id %>" type="hidden" />
         <button
           class="hidden text-gray-600 hover:text-red-800 group-hover:inline-flex float-right"
           title="Delete Note"
@@ -273,6 +270,17 @@
         // open the form
         const form = document.getElementById("editNote" + id);
         form.style.display = "block";
+      }
+
+      function cancelHandler(id) {
+        const form = document.getElementById("editNote" + id);
+        form.style.display = "none";
+
+        const noteElement = document.getElementById("note" + id);
+        noteElement.style.display = "block";
+
+        const updatedNoteElement = document.getElementById("updatedNote" + id);
+        updatedNoteElement.value = noteElement.innerText;
       }
     </script>
   </body>
