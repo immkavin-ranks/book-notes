@@ -61,9 +61,10 @@ app.get("/book/:title", async (req, res) => {
     ]);
     const book = match.rows[0];
 
-    const response = await db.query("SELECT * FROM notes WHERE book_id = $1", [
-      book.id,
-    ]);
+    const response = await db.query(
+      "SELECT * FROM notes WHERE book_id = $1 ORDER BY id",
+      [book.id]
+    );
     const notes = response.rows;
 
     res.render("book.ejs", {
@@ -102,6 +103,7 @@ app.post("/addbook", async (req, res) => {
       "INSERT INTO books (title, author, isbn, rating, review) VALUES ($1, $2, $3, $4, $5)",
       [title, author, isbn, rating, review]
     );
+
     res.redirect("/");
   } catch (error) {
     console.error(error.message);
@@ -118,6 +120,7 @@ app.get("/editbook/:title", async (req, res) => {
       title,
     ]);
     const book = match.rows[0];
+
     res.render("book-description-edit.ejs", { book: book });
   } catch (error) {
     console.error(error.message);
@@ -147,6 +150,7 @@ app.post("/editbook", async (req, res) => {
       "UPDATE books SET title = $1, author = $2, isbn = $3, rating = $4, review = $5, updated_at = NOW() WHERE id = $6",
       [title, author, isbn, rating, review, id]
     );
+
     res.redirect(`/book/${title}`);
   } catch (error) {
     console.error(error.message);
@@ -160,6 +164,7 @@ app.post("/deletebook", async (req, res) => {
 
   try {
     await db.query("DELETE FROM books WHERE title = $1", [title]);
+
     res.redirect("/");
   } catch (error) {
     console.error(error.message);
@@ -182,10 +187,12 @@ app.post("/addnote/:title", async (req, res) => {
       title,
     ]);
     const bookId = response.rows[0].id;
+
     await db.query("INSERT INTO notes (book_id, note) VALUES ($1, $2)", [
       bookId,
       note,
     ]);
+
     res.redirect(`/book/${title}`);
   } catch (error) {
     console.error(error.message);
@@ -194,10 +201,45 @@ app.post("/addnote/:title", async (req, res) => {
 });
 
 // Edit Note
-app.post("/editnote", async (req, res) => {});
+app.post("/editnote/:title", async (req, res) => {
+  const { updatedNoteId, updatedNote } = req.body;
+  const title = req.params.title;
+
+  try {
+    await db.query("UPDATE notes SET note = $1 WHERE id = $2", [
+      updatedNote,
+      updatedNoteId,
+    ]);
+
+    await db.query(
+      "UPDATE books SET updated_at = NOW() WHERE id = (SELECT book_id FROM notes WHERE id = $1)",
+      [updatedNoteId]
+    );
+
+    res.redirect(`/book/${title}`);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 // Delete Note
-app.post("/deletenote", async (req, res) => {});
+app.post("/deletenote/:title", async (req, res) => {
+  const { noteId } = req.body;
+  const title = req.params.title;
+  try {
+    await db.query(
+      "UPDATE books SET updated_at = NOW() WHERE id = (SELECT book_id FROM notes WHERE id = $1)",
+      [noteId]
+    );
+    await db.query("DELETE FROM notes WHERE id = $1", [noteId]);
+
+    res.redirect(`/book/${title}`);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
